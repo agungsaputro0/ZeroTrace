@@ -20,7 +20,7 @@ const SignIn: React.FC = () => {
     }
   };
   return (
-    <div className="max-w-[420px] min-h-screen mx-auto bg-white px-6 py-6 flex flex-col justify-between">
+    <div style={{ minHeight: '100dvh' }} className="max-w-[420px] mx-auto bg-white px-6 py-6 flex flex-col justify-between">
       {/* Logo */}
       <div className="flex justify-center mb-4 mt-2">
         <img

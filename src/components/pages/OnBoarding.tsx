@@ -35,7 +35,7 @@ const Onboarding: React.FC = () => {
   }
 
   function goToSignUpPage() {
-    navigate("SignUp");
+    navigate("/SignUp");
   }
 
   // Auto slide every 4s (optional)
@@ -47,7 +47,7 @@ const Onboarding: React.FC = () => {
   }, []);
 
   return (
-    <div className="max-w-[420px] min-h-screen mx-auto bg-white flex flex-col items-center relative overflow-hidden">
+    <div style={{ minHeight: '100dvh' }} className="max-w-[420px] mx-auto bg-white flex flex-col items-center relative overflow-hidden">
       {/* Wave Background */}
       <div className="w-full absolute top-0 z-[-1]">
         <svg
