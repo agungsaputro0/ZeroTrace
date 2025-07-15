@@ -39,10 +39,11 @@ const Navbar = () => {
               <div className="flex flex-1 w-[100vw] items-center justify-center sm:items-stretch sm:justify-start">
               <Link to="/" className="flex items-center space-x-2">
                 <img
-                  src="/assets/img/logo-wastetrack-white.png" 
-                  alt="WasteTrack Logo"
-                  className="h-10 w-20"
+                  src="/assets/img/trashure-logo.png" 
+                  alt="Trashure Logo"
+                  className="h-10 w-10"
                 />
+                <b className="text-white"><span className="text-amber-400">| Terra</span>Hive</b>
               </Link>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">

@@ -47,18 +47,26 @@ const LoginForm: FC = () => {
         const user = await handleLogin(email, password); 
         const userKategori = user.kategori;
         dispatch(loginSuccess(email));
-        notification.success({
+        if(user.message === 'Account is inactive'){
+          notification.success({
+              message: "Kredensial Ditemukan!",
+              description: "Silakan aktivasi akun anda terlebih dahulu!",
+          });
+          setTimeout(() => {
+            window.location.href = '/AktivasiAkun/' + user.id + '/' + user.email + '/' + user.password; 
+          }, 1000); 
+        } else {
+          notification.success({
             message: "Login Berhasil!",
             description: "Selamat, Anda berhasil Login!",
-        });
-        setTimeout(() => {
-          window.location.href = userKategori === 'administrator' ? '/home' : '/portal'; 
-        }, 1000); 
-
+          });
+          setTimeout(() => {
+            window.location.href = userKategori === 'administrator' ? '/home' : '/portal'; 
+          }, 1000); 
+        }
     } catch (error) {
         setLoginFailed("Invalid credentials");
         dispatch(loginFailure());
-
         notification.error({
             message: "Login Gagal!",
             description: "Mohon maaf, Kredensial Anda tidak valid!",
@@ -77,7 +85,7 @@ const LoginForm: FC = () => {
   </Helmet>
   <div className="pt-24 sm:pt-24 sm:mb-20 md:pt-6 lg:pt-6 flex flex-col lg:flex-row justify-between items-center min-h-screen px-4 md:px-8">
     <div className="sm:pl-0 md:pl-0 lg:pl-10 pt-2 sm:pt-2 md:pt-16 lg:pt-6 mr-0 lg:mr-24 md:mr-0 sm:mr-0 text-center lg:text-left mb-8 lg:mb-0">
-      <h1 className="text-6xl font-bold text-white">Waste<span className="text-amber-400">Track</span></h1>
+      <h1 className="text-6xl font-bold text-white"><span className="text-amber-400">Trash</span>ure</h1>
       <h3 className="text-xl text-white">MENGUBAH SAMPAH MENJADI BERKAH</h3>
     </div>
 

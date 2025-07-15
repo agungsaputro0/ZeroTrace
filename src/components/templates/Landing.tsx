@@ -76,7 +76,7 @@ const LandingLayouts = (props: LandingProps) => {
             <div className="w-full px-10">
                 <center>
                     <h1 className="text-4xl font-bold text-white">
-                        {layoutTitle} Waste<span className="text-amber-400">Track</span>
+                        {layoutTitle} <span className="text-amber-400">Terra</span>Hive
                     </h1>
                     <h3 className="mt-2 text-2xl text-white">{layoutMessage}</h3>
                     <Button

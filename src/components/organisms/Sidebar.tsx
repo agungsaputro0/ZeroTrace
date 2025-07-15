@@ -36,6 +36,7 @@ const Sidebar: React.FC = () => {
       style={{ background: 'transparent',  width: expanded ? '200px' : '80px!important' }}
     >
       <Menu mode="inline" style={{ height: '100%', borderRight: 0 }}>
+      {userAuth?.includes(1) && (
         <Menu.Item 
           key="1" 
           icon={<HomeOutlined />} 
@@ -44,11 +45,22 @@ const Sidebar: React.FC = () => {
         >
           <span className="sidebar-menu-text">Dashboard</span>
         </Menu.Item>
+        )}
+        {!userAuth?.includes(1) && (
+        <Menu.Item 
+          key="1" 
+          icon={<HomeOutlined />} 
+          className="sidebar-menu-item"
+          onClick={() => handleRedirect('/Portal')} 
+        >
+          <span className="sidebar-menu-text">Dashboard</span>
+        </Menu.Item>
+        )}
         <Menu.Item 
           key="2" 
           icon={<MdAddBusiness />} 
           className="sidebar-menu-item"
-          onClick={() => handleRedirect('/bank-sampah')} 
+          onClick={() => handleRedirect('/BankSampah')} 
         >
           <span className="sidebar-menu-text">Bank Sampah</span>
         </Menu.Item>
