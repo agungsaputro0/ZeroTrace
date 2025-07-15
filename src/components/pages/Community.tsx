@@ -20,7 +20,7 @@ const CommunityListPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white pb-28 min-h-screen">
+    <div className="max-w-md mx-auto bg-white pb-28 min-h-screen-dvh">
       <div className="px-4 pt-6 mb-2">
         <h2 className="text-xl font-semibold text-green-800 mb-4">Communities</h2>
 

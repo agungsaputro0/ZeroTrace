@@ -5,7 +5,7 @@ const appName = import.meta.env.VITE_APP_NAME;
 const Home = () => {
     return (
             <Homeshell>
-                <div className="h-screen">
+                <div className="h-screen-dvh">
                 <Helmet>
                     <title>{appName}</title>
                 </Helmet>

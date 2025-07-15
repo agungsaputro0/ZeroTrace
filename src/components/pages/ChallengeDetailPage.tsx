@@ -62,7 +62,7 @@ const ChallengeDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-white py-4">
+    <div className="max-w-md mx-auto min-h-screen-dvh bg-white py-4">
       {/* Header */}
       <div className="flex items-center gap-3 mb-4 px-4">
         <button onClick={() => navigate(-1)} className="text-green-700">

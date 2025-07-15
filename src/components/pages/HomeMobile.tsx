@@ -7,7 +7,7 @@ import NewsListPage from "../molecules/NewsList";
 const Home: React.FC = () => {
   const navigate = useNavigate();
   return (
-   <div className="relative max-w-[420px] mx-auto min-h-screen bg-white px-4 pb-8">
+   <div className="relative max-w-[420px] mx-auto min-h-screen-dvh bg-white px-4 pb-8">
     {/* Background hijau */}
     <div className="absolute inset-0 h-[160px] bg-gradient-to-b from-[#66BB00] to-[#336600]"></div>
 

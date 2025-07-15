@@ -32,7 +32,7 @@ const CommunityDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white min-h-screen pb-28">
+    <div className="max-w-md mx-auto bg-white min-h-screen-dvh pb-28">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4 px-4 mt-4">
               <FaArrowLeft onClick={() => navigate(-1)} className="cursor-pointer" />

@@ -16,7 +16,7 @@ const MyAccountPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white min-h-screen pt-10 pb-20 px-4">
+    <div className="max-w-md mx-auto bg-white min-h-screen-dvh pt-10 pb-20 px-4">
       <h2 className="text-xl font-semibold text-center mb-6">Profil</h2>
 
       {/* Profile Info */}

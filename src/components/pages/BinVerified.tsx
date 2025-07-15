@@ -11,7 +11,7 @@ const BinVerified: React.FC = () => {
   const wasteType = "Plastic"; // 🧴 contoh jenis sampah
 
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col justify-center items-center px-4 bg-gradient-to-b from-green-400 to-white text-center">
+    <div className="max-w-md mx-auto min-h-screen-dvh flex flex-col justify-center items-center px-4 bg-gradient-to-b from-green-400 to-white text-center">
       <img src="/assets/img/icon/smartbin.png" alt="bin" className="w-28 mb-4" />
 
       <h2 className="text-xl font-bold mb-1">Bin Verified</h2>

@@ -57,7 +57,7 @@ const handleSubmit = (e: React.FormEvent) => {
 
 
   return (
-    <div className="max-w-[420px] mx-auto bg-white  pb-6 min-h-screen">
+    <div className="max-w-[420px] mx-auto bg-white  pb-6 min-h-screen-dvh">
       <div className="flex items-center gap-2 mb-4 px-4 mt-4">
              <FaArrowLeft onClick={() => navigate(-1)} className="cursor-pointer" />
              <h2 className="text-xl font-semibold">Create Report</h2>

@@ -31,7 +31,7 @@ const WeightDetected: React.FC = () => {
   }, []);
 
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col items-center justify-center px-4 text-center bg-gradient-to-b from-green-400 to-white">
+    <div className="max-w-md mx-auto min-h-screen-dvh flex flex-col items-center justify-center px-4 text-center bg-gradient-to-b from-green-400 to-white">
       <h2 className="text-xl font-bold mb-4">Weight Detected</h2>
 
       <div className="relative w-48 h-48 mb-6">

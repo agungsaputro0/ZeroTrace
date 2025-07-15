@@ -15,7 +15,7 @@ const SmartBinResult: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col items-center justify-center px-4 bg-gradient-to-b from-green-400 to-white">
+    <div className="max-w-md mx-auto min-h-screen-dvh flex flex-col items-center justify-center px-4 bg-gradient-to-b from-green-400 to-white">
       <div className="bg-green-50 p-5 rounded-xl shadow-md w-full max-w-sm text-center animate-fadeIn">
         <div className="text-green-600 text-5xl mb-2">✅</div>
         <h2 className="font-semibold text-lg mb-1 text-green-800">Waste Dropped Successfully</h2>

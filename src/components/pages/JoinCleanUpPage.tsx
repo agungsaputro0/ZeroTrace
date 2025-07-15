@@ -78,7 +78,7 @@ const JoinCleanUpPage: React.FC = () => {
   if (loading || !reportData) return <div className="text-center mt-10">Loading...</div>;
 
   return (
-    <div className="max-w-[420px] mx-auto bg-white min-h-screen pb-20">
+    <div className="max-w-[420px] mx-auto bg-white min-h-screen-dvh pb-20">
       {/* Header */}
       <div className="flex items-center gap-2 px-4 pt-4 mb-2">
         <FaArrowLeft onClick={() => navigate(-1)} className="cursor-pointer" />

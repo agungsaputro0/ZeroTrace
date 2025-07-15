@@ -42,7 +42,7 @@ const NewsDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white min-h-screen">
+    <div className="max-w-md mx-auto bg-white min-h-screen-dvh">
       {/* Header */}
       <div className="flex items-center gap-3 p-4 ">
         <button onClick={() => navigate(-1)} className="text-green-700">

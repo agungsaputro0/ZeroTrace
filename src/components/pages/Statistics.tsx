@@ -59,7 +59,7 @@ const UserStatisticsPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-md mx-auto bg-white min-h-screen">
+    <div className="max-w-md mx-auto bg-white min-h-screen-dvh">
       <div className="bg-gradient-to-b from-green-200 to-white p-6 rounded-b-3xl shadow-md">
         <h2 className="text-2xl font-semibold text-green-800 mb-1 flex items-center gap-2">
           📊 Statistik Saya

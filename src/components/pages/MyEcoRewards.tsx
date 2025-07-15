@@ -37,7 +37,7 @@ useEffect(() => {
 }, [location]);
 
   return (
-    <div className="max-w-md mx-auto pb-28 min-h-screen bg-white">
+    <div className="max-w-md mx-auto pb-28 min-h-screen-dvh bg-white">
       <div className="pt-4">
         <h2 className="text-xl font-semibold text-green-800 mb-4 px-4">My Eco Rewards</h2>
          <div className="bg-gradient-to-b from-[#B8E986] to-[#ffffff] p-4">

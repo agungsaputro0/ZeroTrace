@@ -43,7 +43,7 @@ const CommunityContentPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-md mx-auto bg-white min-h-screen pb-20">
+    <div className="max-w-md mx-auto bg-white min-h-screen-dvh pb-20">
       {/* Header */}
       <div className="flex items-center gap-2 px-4 pt-4 mb-2">
         <FaArrowLeft onClick={() => navigate(-1)} className="cursor-pointer" />

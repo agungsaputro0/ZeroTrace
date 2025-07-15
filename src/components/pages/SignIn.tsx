@@ -13,7 +13,7 @@ const SignIn: React.FC = () => {
     e.preventDefault();
 
     // Validasi dummy login
-    if (email === "sustainnovation@binus.ac.id" && password === "password") {
+    if (email.trim() === "sustainnovation@binus.ac.id" && password === "password") {
       navigate("/HomeMobile");
     } else {
       alert("Email atau password salah.");

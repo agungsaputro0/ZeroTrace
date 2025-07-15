@@ -37,7 +37,7 @@ const SmartBinScan: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="relative max-w-md mx-auto min-h-screen bg-black text-white flex flex-col">
+    <div className="relative max-w-md mx-auto min-h-screen-dvh bg-black text-white flex flex-col">
       {/* Text di atas area scan */}
       <div className="text-center pt-6 pb-2">
         <h2 className="text-lg font-semibold text-green-400">🔎 Scanning Smartbin...</h2>

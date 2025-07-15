@@ -14,8 +14,12 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      minHeight: {
+        'screen-dvh': '100dvh', 
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
