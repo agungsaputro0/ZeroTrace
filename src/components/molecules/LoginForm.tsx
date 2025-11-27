@@ -121,7 +121,7 @@ const LoginForm: FC = () => {
           </p>
           <Button
             type="submit"
-            variant="bg-green-700 w-full hover:bg-green-900"
+            variant="bg-zeroTrace-gradient w-full hover:bg-mainColor"
             message="Login"
             disabled={loading}
           />

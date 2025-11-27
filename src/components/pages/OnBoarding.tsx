@@ -6,25 +6,32 @@ import OnboardingSlide from "../atoms/OnBoardingSlide";
 interface Slide {
   title: string;
   description: string;
+  image: string;
 }
 
 const slides: Slide[] = [
   {
     title: "Every Action Counts",
     description:
-      "Waste mismanagement causes pollution & climate change.\nWith one scan, you help recycle right and reduce carbon emissions.",
+      "Waste mismanagement causes pollution & climate change. With one scan, you help recycle right and reduce carbon emissions.",
+    image:
+      "/assets/img/onboarding1.png",
   },
   {
     title: "Smarter Waste Start with You",
     description:
-      "Start managing your waste the smart way.\nTrack, sort, and earn eco-points — all in one app.",
+      "Start managing your waste the smart way.Track, sort, and earn eco-points - all in one app.",
+    image:
+      "/assets/img/onboarding2.png",
   },
   {
-    title: "Scan. Throw. Save.",
+    title: "Building a ZeroWaste Future",
     description:
-      "Scan the bin QR\nThrow your waste\nEarn points and track your eco-impact!",
+      "Every proper disposal supports a cleaner, smarter city powered by data-driven recycling.",
+    image: "/assets/img/onboarding4.png",
   },
 ];
+
 
 const Onboarding: React.FC = () => {
   const [current, setCurrent] = useState<number>(0);
@@ -47,27 +54,13 @@ const Onboarding: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ minHeight: '100dvh' }} className="max-w-[420px] mx-auto bg-white flex flex-col items-center relative overflow-hidden">
-      {/* Wave Background */}
-      <div className="w-full absolute top-0 z-[-1]">
-        <svg
-          viewBox="0 0 375 200"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-auto"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="#B8E986"
-            d="M0,0 C150,100 225,0 375,100 L375,0 L0,0 Z"
-          />
-        </svg>
-      </div>
-
+    <div className="max-w-[420px] min-h-screen-dvh mx-auto bg-white flex flex-col justify-between overflow-hidden">
       {/* Slides */}
       <div className="flex-1 w-full flex flex-col justify-center space-y-6  transition-all duration-500">
         <OnboardingSlide
           title={slides[current].title}
           description={slides[current].description}
+          image={slides[current].image}
         />
 
         {/* Dot Indicators */}
@@ -78,7 +71,7 @@ const Onboarding: React.FC = () => {
               onClick={() => setCurrent(i)}
               className={`transition-all cursor-pointer ${
                 i === current
-                  ? "w-6 h-2 bg-[#66BB00] rounded-full"
+                  ? "w-12 h-2 bg-zeroTrace-gradient rounded-full"
                   : "w-2 h-2 bg-gray-300 rounded-full"
               }`}
             ></div>
@@ -91,7 +84,7 @@ const Onboarding: React.FC = () => {
         {/* Sign In */}
         <button
             onClick={goToSignInPage}
-            className="w-full py-3 text-white bg-[#66BB00] rounded-full font-semibold transition-all duration-300 ease-in-out hover:bg-[#4e9900] hover:shadow-xl hover:scale-105 active:scale-95"
+            className="w-full py-3 text-white bg-zeroTrace-gradient rounded-full font-semibold transition-all duration-300 ease-in-out hover:bg-[#4e9900] hover:shadow-xl hover:scale-105 active:scale-95"
         >
         Sign In
         </button>
@@ -99,7 +92,7 @@ const Onboarding: React.FC = () => {
         {/* Sign Up */}
         <button
             onClick={goToSignUpPage}
-            className="w-full py-3 text-[#66BB00] border-2 border-[#66BB00] rounded-full font-semibold transition-all duration-300 ease-in-out hover:bg-[#f0fdf4] hover:text-[#4e9900] hover:border-[#4e9900] hover:shadow-md hover:scale-105 active:scale-95"
+            className="w-full py-3 text-secondColor border-2 border-secondColor rounded-full font-semibold transition-all duration-300 ease-in-out hover:bg-secondColor hover:text-white hover:border-secondColor hover:shadow-md hover:scale-105 active:scale-95"
         >
         Sign Up
         </button>

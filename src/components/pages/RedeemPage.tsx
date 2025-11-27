@@ -52,7 +52,7 @@ const RedeemPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto min-h-screen bg-white pb-28">
+    <div className="max-w-md mx-auto min-h-screen-dvh bg-white pb-28">
       <div className="pt-4">
         {/* Header */}
         <div className="flex items-center gap-3 mb-4 px-4 ">

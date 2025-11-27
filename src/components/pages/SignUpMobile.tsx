@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import InputElement from "../atoms/InputElement";
 
 const SignUp: React.FC = () => {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     fullName: "",
-    gender: "",
-    birthDate: "",
     phone: "",
     email: "",
     password: "",
@@ -30,8 +29,6 @@ const SignUp: React.FC = () => {
   // Validasi sederhana
   if (
     !form.fullName ||
-    !form.gender ||
-    !form.birthDate ||
     !form.phone ||
     !form.email ||
     !form.password ||
@@ -76,99 +73,123 @@ const SignUp: React.FC = () => {
   return (
     <div
       style={{ minHeight: "100dvh" }}
-      className="max-w-[420px] mx-auto bg-white px-6 py-6 flex flex-col justify-between"
+      className="relative max-w-[420px] mx-auto bg-white px-6 py-6 flex flex-col justify-between overflow-hidden"
     >
-      {/* Logo */}
-      <div className="flex justify-center mb-4 mt-2">
+    {/* Logo */}
+        <div className="absolute top-0 left-0 w-full h-[65dvh] z-0">
+        <svg
+          viewBox="0 0 1440 480"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+          preserveAspectRatio="none"
+        >
+           <defs>
+            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#26C6DA" />
+              <stop offset="100%" stopColor="#26D6A8" />
+            </linearGradient>
+          </defs>
+          <path
+            fill="url(#waveGradient)" 
+            d="
+              M0,200 
+              C240,180 480,220 720,200 
+              C960,180 1200,220 1440,200 
+              V0 H0 Z
+            "
+          />
+        </svg>
+      </div>
+      
+      <div className="flex justify-center mb-4 mt-4 z-10">
         <img
-          src="/assets/img/ZeroTrace.png"
+          src="/assets/img/logo-white.png"
           alt="ZeroTrace Logo"
-          className="w-16 h-16"
+          className="w-24 h-24"
         />
       </div>
 
       {/* Title */}
-      <h1 className="text-center text-2xl font-bold mb-4">Sign Up</h1>
+      <h1 className="text-center text-4xl font-bold mb-8 -mt-4 text-white z-10">Sign Up</h1>
 
       {/* Form */}
-      <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-        <input
-          name="fullName"
-          type="text"
-          placeholder="Full Name"
+      <form className="flex flex-col gap-3 mt-8" onSubmit={handleSubmit}>
+        <InputElement
+          forwhat="fullName"
+          labelMessage="Full Name"
+          typeInput="text"
+          inputName="fullName"
+          inputPlaceholder="Full Name"
           onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
-        />
-        <input
-          name="gender"
-          type="text"
-          placeholder="Gender"
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
-        />
-        <input
-          name="birthDate"
-          type="date"
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
-        />
-        <input
-          name="phone"
-          type="tel"
-          placeholder="Phone Number"
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
-        />
-        <input
-          name="repassword"
-          type="password"
-          placeholder="Re-password"
-          onChange={handleChange}
-          className="w-full px-4 py-3 rounded-full bg-gray-100 text-sm focus:outline-none"
         />
 
+        <InputElement
+          forwhat="phone"
+          labelMessage="Phone Number"
+          typeInput="text"
+          inputName="phone"
+          inputPlaceholder="Phone Number"
+          onChange={handleChange}
+        />
+
+        <InputElement
+          forwhat="email"
+          labelMessage="Email"
+          typeInput="email"
+          inputName="email"
+          inputPlaceholder="Email"
+          onChange={handleChange}
+        />
+
+        <InputElement
+          forwhat="password"
+          labelMessage="Password"
+          typeInput="password"
+          inputName="password"
+          inputPlaceholder="Password"
+          onChange={handleChange}
+        />
+
+        <InputElement
+          forwhat="repassword"
+          labelMessage="Re-enter Password"
+          typeInput="password"
+          inputName="repassword"
+          inputPlaceholder="Re-enter Password"
+          onChange={handleChange}
+        />
+
+
         {/* Terms */}
-        <label className="flex items-start gap-2 text-xs mt-2">
+        <label className="flex items-start gap-2 text-md mt-2">
           <input
             type="checkbox"
             name="agree"
             checked={form.agree}
             onChange={handleChange}
-            className="mt-[3px] accent-[#66BB00]"
+            className="mt-[1px] accent-secondColor h-6 w-6"
           />
-          <span>
-            By checking the box you agree to our{" "}
-            <span className="text-red-500">Terms and Conditions</span>
-          </span>
+          <p className="text-md leading-relaxed text-justify">
+            By checking this box, you agree to our{" "}
+            <span className="text-secondColor font-bold">
+              Terms and Conditions
+            </span>.
+          </p>
         </label>
 
         {/* Button */}
         <button
           type="submit"
-          className="mt-4 w-full py-3 text-[#66BB00] border-2 border-[#66BB00] rounded-full font-semibold transition-all duration-300 hover:bg-[#f0fdf4] hover:text-[#4e9900] hover:border-[#4e9900] hover:shadow-md hover:scale-105 active:scale-95"
+          className="mt-4 w-full py-3 text-white bg-zeroTrace-gradient rounded-full font-semibold transition-all duration-300 hover:bg-[#f0fdf4] hover:text-[#4e9900] hover:border-[#4e9900] hover:shadow-md hover:scale-105 active:scale-95"
         >
           Sign Up
         </button>
       </form>
 
       {/* Already have account */}
-      <p className="text-center text-sm mt-4">
+      <p className="text-center text-lg mt-4">
         Already have account?{" "}
-        <Link to="/SignIn" className="text-[#66BB00] font-semibold">
+        <Link to="/SignIn" className="text-secondColor font-semibold">
           Sign In
         </Link>
       </p>
