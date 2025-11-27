@@ -76,7 +76,7 @@ const SignUp: React.FC = () => {
       className="relative max-w-[420px] mx-auto bg-white px-6 py-6 flex flex-col justify-between overflow-hidden"
     >
     {/* Logo */}
-        <div className="absolute top-0 left-0 w-full h-[65dvh] z-0">
+        <div className="absolute top-0 left-0 w-full h-[72dvh] z-0">
         <svg
           viewBox="0 0 1440 480"
           xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ const SignUp: React.FC = () => {
       </div>
 
       {/* Title */}
-      <h1 className="text-center text-4xl font-bold mb-8 -mt-4 text-white z-10">Sign Up</h1>
+      <h1 className="text-center text-3xl font-bold mb-8 text-white z-10">Sign Up</h1>
 
       {/* Form */}
       <form className="flex flex-col gap-3 mt-8" onSubmit={handleSubmit}>
@@ -139,6 +139,7 @@ const SignUp: React.FC = () => {
           inputName="email"
           inputPlaceholder="Email"
           onChange={handleChange}
+
         />
 
         <InputElement
@@ -180,7 +181,7 @@ const SignUp: React.FC = () => {
         {/* Button */}
         <button
           type="submit"
-          className="mt-4 w-full py-3 text-white bg-zeroTrace-gradient rounded-full font-semibold transition-all duration-300 hover:bg-[#f0fdf4] hover:text-[#4e9900] hover:border-[#4e9900] hover:shadow-md hover:scale-105 active:scale-95"
+          className="mt-4 w-full py-3 text-white bg-zeroTrace-gradient rounded-full font-semibold transition-all duration-300 hover:bg-[#f0fdf4] hover:text-white hover:border-[#4e9900] hover:shadow-md hover:scale-105 active:scale-95"
         >
           Sign Up
         </button>

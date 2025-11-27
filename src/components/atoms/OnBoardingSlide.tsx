@@ -13,27 +13,32 @@ const OnboardingSlide: React.FC<OnboardingSlideProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center text-center w-full">
-
-      <div className="w-full px-6 mt-2">
-        <div className="w-full aspect-[4/4] rounded-xl overflow-hidden">
+      {/* Image wrapper */}
+      <div className="w-full max-h-[40dvh] px-6 mt-2">
+        <div className="w-full flex justify-center aspect-[4/4] rounded-xl overflow-hidden">
           <img
             src={image}
             alt={title}
-            className="w-full h-full object-contain"
+            className="w-3/4 h-3/4 object-contain"
           />
         </div>
       </div>
 
-
       {/* Text Section */}
-      <div className="px-6 mt-12 text-justify space-y-3">
-        <h2 className="text-2xl font-bold text-secondColor">{title}</h2>
+      <div className="px-6 leading-snug  mt-8 text-justify space-y-2 min-h-[80px]">
+        <h2 className="text-lg font-bold text-secondColor">
+          {title}
+        </h2>
 
-        <p className="text-lg text-gray-600 whitespace-pre-line">
+        <p
+          className="text-md text-gray-600 whitespace-pre-line leading-snug line-clamp-3"
+        >
           {description}
         </p>
       </div>
+
     </div>
+
   );
 };
 

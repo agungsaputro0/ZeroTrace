@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
       className="relative max-w-[420px] mx-auto bg-white px-6 py-6 flex flex-col justify-between overflow-hidden"
     >
     {/* Logo */}
-        <div className="absolute top-0 left-0 w-full h-[70dvh] z-0">
+        <div className="absolute top-0 left-0 w-full h-[75dvh] z-0">
         <svg
           viewBox="0 0 1440 480"
           xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +63,7 @@ const SignIn: React.FC = () => {
       </div>
 
       {/* Title */}
-      <h1 className="text-center text-4xl font-bold mb-8 -mt-8 text-white z-10">Sign In</h1>
+      <h1 className="text-center text-3xl font-bold mb-8 text-white z-10">Sign In</h1>
       {/* Form */}
       <form className="flex flex-col gap-4 mt-8" onSubmit={handleSubmit}>
         <InputElement
