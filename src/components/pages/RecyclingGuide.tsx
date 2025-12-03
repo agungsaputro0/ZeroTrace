@@ -4,6 +4,7 @@ import { FaBottleWater } from "react-icons/fa6";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 import MobileBottomNav from "../organisms/MobileBottomNav";
 import { useNavigate } from "react-router-dom";
+import { Timeline } from "antd";
 
 interface GuideItem {
   type: string;
@@ -18,11 +19,13 @@ const recyclingGuideData: GuideItem[] = [
   {
     type: "Plastic",
     icon: <FaBottleWater className="w-8 h-8 text-yellow-600" />,
-    description: "Plastics like bottles, containers, and packaging.",
+    description:
+      "Plastics are everywhere in daily life, from bottles to packaging materials. Recycling plastics reduces pollution and conserves natural resources. Understanding how to properly handle plastics helps improve the recycling process.",
     tips: [
-      "Rinse bottles and containers before recycling",
-      "Remove caps and labels if possible",
-      "Do not recycle plastic bags with curbside bins",
+      "Rinse bottles and containers to remove leftover liquids; dirty plastics can contaminate recycling batches.",
+      "Remove caps and labels; some labels are non-recyclable and can hinder processing.",
+      "Do not put plastic bags in curbside bins; use designated collection points.",
+      "Prefer reusable alternatives to single-use plastics whenever possible.",
     ],
     color: "bg-yellow-100",
     textColor: "text-yellow-800",
@@ -30,11 +33,13 @@ const recyclingGuideData: GuideItem[] = [
   {
     type: "Paper",
     icon: <FaBook className="w-8 h-8 text-blue-600" />,
-    description: "Paper, newspapers, cardboard, office paper.",
+    description:
+      "Paper is a common material in offices and homes. Recycling paper saves trees, water, and energy. Proper preparation ensures cleaner recycling streams.",
     tips: [
-      "Avoid wet or greasy paper",
-      "Flatten cardboard boxes",
-      "Remove tape and staples if possible",
+      "Avoid recycling wet or greasy paper; contamination reduces quality.",
+      "Flatten cardboard boxes to save space and improve processing.",
+      "Remove tape, staples, or bindings; they can interfere with machinery.",
+      "Separate glossy or colored paper; some types require special handling.",
     ],
     color: "bg-blue-100",
     textColor: "text-blue-800",
@@ -42,11 +47,13 @@ const recyclingGuideData: GuideItem[] = [
   {
     type: "Organic",
     icon: <FaAppleAlt className="w-8 h-8 text-green-600" />,
-    description: "Food scraps, leaves, garden waste.",
+    description:
+      "Organic waste includes food scraps and garden material. Composting these materials reduces landfill waste and creates nutrient-rich soil for gardening.",
     tips: [
-      "Use a compost bin for kitchen scraps",
-      "Do not include meat or dairy in compost",
-      "Leaves and garden waste can be shredded for faster decomposition",
+      "Use a compost bin for kitchen scraps like fruit and vegetable peels.",
+      "Avoid adding meat, dairy, or oily foods; they attract pests.",
+      "Shred leaves and garden waste for faster decomposition.",
+      "Turn your compost regularly to aerate and speed up the process.",
     ],
     color: "bg-green-100",
     textColor: "text-green-800",
@@ -54,11 +61,13 @@ const recyclingGuideData: GuideItem[] = [
   {
     type: "Metal",
     icon: <FaBox className="w-8 h-8 text-gray-700" />,
-    description: "Cans, tins, aluminum foil.",
+    description:
+      "Metal items include cans, tins, and aluminum foil. Recycling metals conserves resources and energy. Proper handling ensures metals are fully reusable.",
     tips: [
-      "Rinse cans and foil before recycling",
-      "Do not crush aerosol cans",
-      "Separate lids from cans if possible",
+      "Rinse cans and foil to remove residues before recycling.",
+      "Do not crush aerosol cans; they can be hazardous.",
+      "Separate lids from cans if possible to simplify processing.",
+      "Avoid mixing metals with non-metallic waste.",
     ],
     color: "bg-gray-200",
     textColor: "text-gray-800",
@@ -66,11 +75,13 @@ const recyclingGuideData: GuideItem[] = [
   {
     type: "Glass",
     icon: <FaGlassMartini className="w-8 h-8 text-purple-600" />,
-    description: "Bottles and jars.",
+    description:
+      "Glass bottles and jars are fully recyclable without loss of quality. Proper sorting ensures clear and colored glass is recycled efficiently.",
     tips: [
-      "Remove lids and rinse before recycling",
-      "Do not recycle broken glass in curbside bins",
-      "Colored glass is recycled separately from clear glass",
+      "Remove lids and rinse glass items before recycling.",
+      "Do not place broken glass in curbside bins; it can be dangerous.",
+      "Separate colored glass from clear glass for proper processing.",
+      "Reuse glass containers when possible to reduce energy consumption.",
     ],
     color: "bg-purple-100",
     textColor: "text-purple-800",
@@ -84,6 +95,9 @@ const RecyclingGuide: React.FC = () => {
   const toggleExpand = (type: string) => {
     setExpanded((prev) => ({ ...prev, [type]: !prev[type] }));
   };
+
+  
+
 
   return (
     <div className="relative max-w-[420px] mx-auto min-h-screen-dvh bg-white px-4 pb-24">
@@ -102,6 +116,7 @@ const RecyclingGuide: React.FC = () => {
           />
         </svg>
       </div>
+
       <div className="flex items-center gap-3 py-4 mb-2 relative z-20">
         <button onClick={() => navigate("/HomeMobile")} className="text-white">
           <FaArrowLeft />
@@ -132,21 +147,41 @@ const RecyclingGuide: React.FC = () => {
                   )}
                 </div>
               </div>
-              <p className="text-sm text-gray-700 mb-2">{item.description}</p>
+
+             
+
+              {/* Timeline tips */}
               <div
-                className={`overflow-hidden transition-all duration-500`}
-                style={{ maxHeight: isExpanded ? `${item.tips.length * 1.5}rem` : "0" }}
+              className={`overflow-hidden transition-all duration-500`}
+              style={{ maxHeight: isExpanded ? "1000px" : "3.5rem" }} // default line-clamp 3
+            >
+              <p
+                className={`text-sm text-gray-700 mb-2 text-justify ${
+                  !isExpanded ? "line-clamp-3" : ""
+                }`}
               >
-                <ul className="list-disc list-inside text-xs text-gray-700 space-y-1">
-                  {item.tips.map((tip, idx) => (
-                    <li key={idx}>{tip}</li>
-                  ))}
-                </ul>
-              </div>
+                {item.description}
+              </p>
+
+              {/* Timeline tips */}
+              {isExpanded && (
+                <Timeline
+                  className="mt-6 bg-transparent"
+                  mode="left"
+                  items={item.tips.map((tip, idx) => ({
+                    children: <p className="text-gray-700 bg-transparent text-sm">{tip}</p>,
+                    dot: <span className="w-3 h-3 bg-secondColor rounded-full block"></span>,
+                    key: idx,
+                  }))}
+                />
+              )}
+            </div>
+
             </div>
           );
         })}
       </div>
+
       <MobileBottomNav />
     </div>
   );

@@ -177,7 +177,7 @@ const NewsDetailPage: React.FC = () => {
                  <h2 className="text-lg font-semibold text-black text-center">
                   All Comments
                 </h2>
-                <ul className="space-y-3 border-t">
+                <ul className="space-y-3">
                   {comments.map((cmt) => (
                     <li
                       key={cmt.id}

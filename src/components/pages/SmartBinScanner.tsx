@@ -17,8 +17,7 @@ const SmartBinScan: React.FC = () => {
     html5QrCode.start(
       { facingMode: "environment" },
       config,
-      (decodedText) => {
-        console.log("QR detected: ", decodedText);
+      (_decodedText) => {
         if (!isStoppedRef.current) {
           isStoppedRef.current = true;
           html5QrCode.stop().then(() => {
@@ -40,21 +39,21 @@ const SmartBinScan: React.FC = () => {
     <div className="relative max-w-md mx-auto min-h-screen-dvh bg-black text-white flex flex-col">
       {/* Text di atas area scan */}
       <div className="text-center pt-6 pb-2">
-        <h2 className="text-lg font-semibold text-green-400">🔎 Scanning Smartbin...</h2>
+        <h2 className="text-lg font-semibold text-secondColor">🔎 Scanning Smartbin...</h2>
       </div>
 
       {/* QR Code Region */}
-      <div id={qrCodeRegionId} className="flex-1 w-full"></div>
+      <div id={qrCodeRegionId} className="flex-1 w-full h-full"></div>
 
       {/* Overlay icon */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
-        <div className="w-20 h-20 border-4 border-green-400 rounded-lg animate-pulse flex items-center justify-center">
+        <div className="w-20 h-20 border-4 border-secondColor rounded-lg animate-pulse flex items-center justify-center">
           <img src="/assets/img/icon/scan-qr.png" alt="Scan Icon" className="w-8 h-8 opacity-80" />
         </div>
       </div>
 
       {/* Instruction text */}
-      <div className="absolute bottom-10 left-0 right-0 text-center text-sm text-white">
+      <div className="absolute bottom-14 left-0 right-0 text-center text-sm  -mt-20 text-white">
         Align the QR code within the frame
       </div>
     </div>

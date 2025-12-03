@@ -7,6 +7,8 @@ import {
   FaExclamationTriangle,
   FaEllipsisH,
   FaBars,
+  FaLeaf,
+  FaTimes,
 } from "react-icons/fa";
 import { GiRadarSweep } from "react-icons/gi";
 import { BiTask } from "react-icons/bi";
@@ -30,6 +32,65 @@ const Home: React.FC = () => {
       setPoints(parsed.points ?? 0);
     }
   }, []);
+
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [showPanel, setShowPanel] = useState(false); 
+  const [showAll, setShowAll] = useState(false); 
+  const [notifications, setNotifications] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<"all" | "unread">("all");
+  const currentUserStr = localStorage.getItem("currentUser") ||
+    '{"idPengguna":"PG006","avatarUrl":"/assets/img/user.png"}';
+  const user = JSON.parse(currentUserStr);
+  const idPengguna = user?.idPengguna || "Guest User";
+  
+   const dummyData = Array.from({ length: 10 }, (_, i) => ({
+    idPengguna,
+    tambahanPoin: Math.floor(Math.random() * 10) + 1,
+    statusDilihat: true, // semua dummy dianggap sudah dibaca
+    timestamp: new Date(Date.now() - i * 24 * 3600 * 1000).toISOString()
+  }));
+
+ useEffect(() => {
+    const ecoData: any[] = JSON.parse(localStorage.getItem("ecoData") || "[]");
+    const combined = [...dummyData, ...ecoData]; 
+    setNotifications(combined);
+
+    const unread = combined.filter(
+      (item) => item.idPengguna === idPengguna && item.statusDilihat === false
+    );
+    setUnreadCount(unread.length);
+  }, [idPengguna]);
+
+   const displayedNotifications =
+    activeTab === "all"
+      ? notifications
+      : notifications.filter((item) => item.statusDilihat === false);
+
+
+  const handleClosePanel = () => setShowPanel(false);
+
+  const handleBellClick = () => {
+    setShowPanel(!showPanel);
+
+    // Optional: set semua statusDilihat menjadi true ketika panel dibuka
+    const ecoData: any[] = JSON.parse(localStorage.getItem("ecoData") || "[]");
+    const updatedData = ecoData.map((item) =>
+      item.idPengguna === idPengguna ? { ...item, statusDilihat: true } : item
+    );
+    localStorage.setItem("ecoData", JSON.stringify(updatedData));
+    setUnreadCount(0);
+  };
+
+  
+  const formatTime = (timestamp: string | null) => {
+    const date = timestamp ? new Date(timestamp) : new Date();
+    return `${String(date.getDate()).padStart(2, "0")}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${date.getFullYear()} ${String(date.getHours()).padStart(
+      2,
+      "0"
+    )}:${String(date.getMinutes()).padStart(2, "0")}`;
+  };
 
   return (
     <div className="relative max-w-[420px] mx-auto min-h-screen-dvh bg-white px-4 pb-8">
@@ -66,11 +127,84 @@ const Home: React.FC = () => {
         </p>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
+          <div className="relative cursor-pointer" onClick={handleBellClick}>
             <FaBell className="text-white w-7 h-7" />
+            {unreadCount > 0 && (
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
-              1
+              {unreadCount}
             </span>
+          )}
+           {showPanel && (
+            <div
+              className="absolute right-0 w-72 bg-white border border-gray-200 shadow-lg rounded-lg p-3 z-50"
+              onClick={(e) => e.stopPropagation()} // mencegah panel tertutup saat diklik
+            >
+              {/* Header + Close */}
+              <div className="flex justify-between items-center mb-2">
+                <h4 className="font-semibold text-gray-700">Notifications</h4>
+                <button onClick={handleClosePanel} className="text-gray-400 hover:text-gray-600">
+                  <FaTimes />
+                </button>
+              </div>
+
+              {/* Tabs */}
+              <div className="flex mb-2 border-b border-gray-200">
+                <button
+                  onClick={() => { setActiveTab("all"); setShowAll(false); }}
+                  className={`flex-1 py-1 text-sm font-medium ${
+                    activeTab === "all" ? "text-secondColor border-b-2 border-secondColor" : "text-gray-500"
+                  }`}
+                >
+                  All
+                </button>
+                <button
+                  onClick={() => setActiveTab("unread")}
+                  className={`flex-1 py-1 text-sm font-medium ${
+                    activeTab === "unread" ? "text-secondColor border-b-2 border-secondColor" : "text-gray-500"
+                  }`}
+                >
+                  Unread
+                </button>
+              </div>
+
+              {/* List */}
+              {displayedNotifications.length === 0 ? (
+                <p className="text-gray-500 text-sm mt-2">No notifications</p>
+              ) : (
+                <ul className="space-y-2 max-h-60 overflow-y-auto mt-1">
+                  {(activeTab === "unread"
+                    ? displayedNotifications
+                    : showAll
+                      ? displayedNotifications
+                      : displayedNotifications.slice(0, 5)
+                  ).map((item, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-2 text-gray-700 text-sm border-b border-gray-200 pb-2"
+                    >
+                      <FaLeaf className="text-green-500 mt-1" />
+                      <div className="flex flex-col">
+                        <span>
+                          You earned <strong>{item.tambahanPoin} Eco Points</strong>
+                        </span>
+                        <span className="text-gray-400 text-xs">{formatTime(item.timestamp)}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {/* See All button untuk All tab */}
+              {activeTab === "all" && !showAll && displayedNotifications.length > 5 && (
+                <button
+                  onClick={() => setShowAll(true)}
+                  className="text-secondColor text-sm w-full text-center mt-1 hover:text-mainColor font-bold"
+                >
+                  See All
+                </button>
+              )}
+            </div>
+          )}
           </div>
 
           {/* Hamburger */}

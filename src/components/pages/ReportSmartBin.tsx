@@ -114,7 +114,7 @@ const ReportSmartBin: React.FC = () => {
         </svg>
       </div>
       <div className="flex items-center gap-3 py-4 relative z-20">
-        <button onClick={() => navigate("/SmartBinDetail/" + id)} className="text-white">
+        <button onClick={() => navigate(-1)} className="text-white">
           <FaArrowLeft />
         </button>
         <h1 className="text-xl text-white font-zerotrace font-semibold">Report SmartBin</h1>

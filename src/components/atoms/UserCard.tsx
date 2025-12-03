@@ -2,6 +2,19 @@ import { FaLeaf, FaMedal, FaStar } from "react-icons/fa";
 import { HiDotsVertical } from "react-icons/hi";
 
 const UserCard = ({ user, points }: { user: any; points: number }) => {
+  const currentUserStr = localStorage.getItem("currentUser") ||
+    '{"idPengguna":"PG006","avatarUrl":"/assets/img/user.png"}';
+  const currentUser = JSON.parse(currentUserStr);
+  const idPengguna = currentUser?.idPengguna || "Guest User";
+  
+  const ecoData: any[] = JSON.parse(localStorage.getItem("ecoData") || "[]");
+
+  // Filter sesuai user
+  const userData = ecoData.filter(item => item.idPengguna === idPengguna);
+
+  // Hitung total poin
+  const totalPoin = userData.reduce((acc, item) => acc + (item.tambahanPoin || 0), 0);
+
 
   // Badge logic
   const getBadge = () => {
@@ -66,7 +79,7 @@ const UserCard = ({ user, points }: { user: any; points: number }) => {
       {/* PROGRESS BAR */}
       <div className="mt-4">
         <p className="text-xs text-gray-500 mb-1">
-          {points} / {badge.next} for {badge.label === "ZeroHero Elite" ? "maximum" : "the next badge"}
+          {points + totalPoin} / {badge.next} for {badge.label === "ZeroHero Elite" ? "maximum" : "the next badge"}
         </p>
 
         <div className="w-full h-2 rounded-full bg-gray-200">

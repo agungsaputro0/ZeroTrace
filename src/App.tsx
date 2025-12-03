@@ -75,11 +75,11 @@ const App = () => {
         <Route path="/CommunityDetail/:id" element={<StakeholderRoute><CommunityDetail /></StakeholderRoute>} />
         <Route path="/CommunityContent/:id" element={<StakeholderRoute><CommunityContent /></StakeholderRoute>} />
         <Route path="/RecyclingGuide" element={<StakeholderRoute><RecyclingGuide /></StakeholderRoute>} />
-        <Route path="/MyAccount" element={<RedirectIfLoggedIn><MyAccount /></RedirectIfLoggedIn>} />
-        <Route path="/SmartBinScanner" element={<RedirectIfLoggedIn><SmartBinScanner /></RedirectIfLoggedIn>} />
-        <Route path="/BinVerified" element={<RedirectIfLoggedIn><BinVerified /></RedirectIfLoggedIn>} />
-        <Route path="/WeightDetected" element={<RedirectIfLoggedIn><WeightDetected /></RedirectIfLoggedIn>} />
-        <Route path="/SmartBinResult" element={<RedirectIfLoggedIn><SmartBinResult /></RedirectIfLoggedIn>} />
+        <Route path="/MyAccount" element={<StakeholderRoute><MyAccount /></StakeholderRoute>} />
+        <Route path="/SmartBinScanner" element={<StakeholderRoute><SmartBinScanner /></StakeholderRoute>} />
+        <Route path="/BinVerified" element={<StakeholderRoute><BinVerified /></StakeholderRoute>} />
+        <Route path="/WeightDetected" element={<StakeholderRoute><WeightDetected /></StakeholderRoute>} />
+        <Route path="/SmartBinResult" element={<StakeholderRoute><SmartBinResult /></StakeholderRoute>} />
         <Route path="/PickUpWasteBank" element={<RedirectIfLoggedIn><PickupWasteBank /></RedirectIfLoggedIn>} />
         <Route path="/PickUpWasteBankDetail/:id" element={<RedirectIfLoggedIn><PickupWasteBankDetail /></RedirectIfLoggedIn>} />
         <Route path="/PickUpScheduleForm/:id" element={<RedirectIfLoggedIn><PickupScheduleForm /></RedirectIfLoggedIn>} />

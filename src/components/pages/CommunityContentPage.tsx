@@ -89,6 +89,30 @@ const CommunityContentPage: React.FC = () => {
 
   // Fungsi refreshPosts agar bisa dipanggil dari ForumPostBox
   const refreshPosts = () => {
+    const dummyPosts: Post[] = [
+        {
+          id: 1,
+          userName: "Joko Prabogo",
+          avatarUrl: "/assets/img/user.png",
+          text: "Can we organize a cleanup on the 21st? Many reported piles near the bridge.",
+          hashtags: ["#cleanup", "#community"],
+          attachments: [],
+          likes: 5,
+          liked: false,
+          createdAt: new Date().toISOString(),
+        },
+        {
+          id: 2,
+          userName: "Yanto Galon",
+          avatarUrl: "/assets/img/user.png",
+          text: "I can help bring some tools. Let me know what’s needed.",
+          hashtags: ["#volunteer"],
+          attachments: [],
+          likes: 3,
+          liked: false,
+          createdAt: new Date().toISOString(),
+        },
+      ];
     const existingPostsStr = localStorage.getItem("forumPosts");
     if (existingPostsStr) {
       const existingPosts: Post[] = JSON.parse(existingPostsStr).map((p: any) => ({
@@ -96,7 +120,7 @@ const CommunityContentPage: React.FC = () => {
         likes: 0,
         liked: false,
       }));
-      setPosts(existingPosts);
+      setPosts([...existingPosts, ...dummyPosts]);
     } else {
       // Tetap gunakan dummy kalau kosong
       const dummyPosts: Post[] = [
