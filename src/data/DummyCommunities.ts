@@ -5,6 +5,7 @@ export interface Community {
   name: string;
   description: string;
   members: number;
+  posts: number;        // ← baru
   image: string;
 }
 
@@ -15,6 +16,7 @@ const communityData: Community[] = [
     description:
       "A growing network of eco-minded individuals making daily impact for a better planet.",
     members: 5308,
+    posts: 142,            // ← jumlah post
     image: "/assets/img/community-logo/green-circle.jpg",
   },
   {
@@ -23,6 +25,7 @@ const communityData: Community[] = [
     description:
       "A movement that turns actions into trees. Join tree-planting missions & green education.",
     members: 2931,
+    posts: 98,
     image: "/assets/img/community-logo/plant-forward.png",
   },
   {
@@ -31,6 +34,7 @@ const communityData: Community[] = [
     description:
       "One step at a time, one habit at a time. We’re walking toward a cleaner, greener world.",
     members: 1308,
+    posts: 67,
     image: "/assets/img/community-logo/eco-steps.png",
   },
   {
@@ -39,6 +43,7 @@ const communityData: Community[] = [
     description:
       "A volunteer-powered community committed to keeping cities clean and trash-free.",
     members: 750,
+    posts: 43,
     image: "/assets/img/community-logo/clean-nation.jpg",
   },
   {
@@ -47,6 +52,7 @@ const communityData: Community[] = [
     description:
       "Focusing on ocean cleanups and awareness of marine debris. Dive in and help protect marine life!",
     members: 1812,
+    posts: 85,
     image: "/assets/img/community-logo/blue-ocean.png",
   },
   {
@@ -55,6 +61,7 @@ const communityData: Community[] = [
     description:
       "Bringing greenery back to the city through rooftop gardens and community farming.",
     members: 978,
+    posts: 39,
     image: "/assets/img/community-logo/urban-garedener.jpg",
   },
   {
@@ -63,6 +70,7 @@ const communityData: Community[] = [
     description:
       "Join the movement to reduce single-use plastics and promote reusable alternatives.",
     members: 2060,
+    posts: 76,
     image: "/assets/img/community-logo/plastic-free.png",
   },
   {
@@ -71,6 +79,7 @@ const communityData: Community[] = [
     description:
       "Artists who use recycled and natural materials to create stunning, eco-conscious art.",
     members: 690,
+    posts: 21,
     image: "/assets/img/community-logo/eco-artist.jpg",
   },
   {
@@ -79,6 +88,7 @@ const communityData: Community[] = [
     description:
       "Youth-led organization raising climate awareness and pushing for global climate action.",
     members: 4523,
+    posts: 123,
     image: "/assets/img/community-logo/climate-youth.png",
   },
   {
@@ -87,6 +97,7 @@ const communityData: Community[] = [
     description:
       "Dedicated to living a zero-waste lifestyle and educating others to do the same.",
     members: 1654,
+    posts: 58,
     image: "/assets/img/community-logo/zero-waste.jpg",
   },
   {
@@ -95,6 +106,7 @@ const communityData: Community[] = [
     description:
       "Techies and environmentalists working on sustainable technology solutions.",
     members: 1230,
+    posts: 32,
     image: "/assets/img/community-logo/green-tech.jpg",
   },
   {
@@ -103,6 +115,7 @@ const communityData: Community[] = [
     description:
       "Passionate about forest conservation, reforestation, and protecting biodiversity.",
     members: 2750,
+    posts: 64,
     image: "/assets/img/community-logo/tree-hugger.jpg",
   },
 ];

@@ -22,6 +22,9 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        zerotrace: ['zerotrace', 'sans-serif'],
+      },
       backgroundImage: {
         'zeroTrace-gradient': 'linear-gradient(to right, #26C6DA, #26D6A8)',
       },

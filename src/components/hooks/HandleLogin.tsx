@@ -1,41 +1,48 @@
-import axios from 'axios';
-
-const baseURL = import.meta.env.VITE_APP_PUBLIC_API_URL;
-
-interface LoginResponse {
-    message: string;
-}
+import users from "../../pseudo_db/users.json";
 
 export const handleLogin = async (email: string, password: string) => {
-    try {
-        //console.log("Base URL:", baseURL);
-        const response = await axios.post<LoginResponse>(`${baseURL}/login`, { email, password }, { withCredentials: true });
-        //console.log(response.data.message);
-        if (response.data.message === 'Login successful') {
-            const userResponse = await axios.get(`${baseURL}/get_current_user`, { withCredentials: true });
-            return userResponse.data; 
-        } else if (response.data.message === 'Account is inactive') {
-            return response.data;
-        }
-    } catch (error) {
-        //console.error('Login failed:', error);
-        throw error;
+  try {
+    // 1. Cek dari users.json
+    const userFromJson = users.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    // 2. Cek dari localStorage (data signup)
+    const stored = localStorage.getItem("newUser");
+    const localUsers = stored ? JSON.parse(stored) : [];
+
+    const userFromLocal = localUsers.find(
+      (u: any) => u.email === email && u.password === password
+    );
+
+    // Jika user ditemukan di salah satu sumber
+    const finalUser = userFromJson || userFromLocal;
+
+    if (finalUser) {
+      localStorage.setItem("currentUser", JSON.stringify(finalUser));
+
+      return {
+        success: true,
+        message: "Login successful",
+        user: finalUser,
+      };
     }
+
+    return {
+      success: false,
+      message: "Invalid email or password",
+    };
+  } catch (error) {
+    console.error("Login failed:", error);
+    throw error;
+  }
 };
 
-export const handleLoginAfterActivation = async (email: string, password: string) => {
-    try {
-        //console.log("Base URL:", baseURL);
-        const response = await axios.post<LoginResponse>(`${baseURL}/login_after_activation`, { email, password }, { withCredentials: true });
-        //console.log(response.data.message);
-        if (response.data.message === 'Login successful') {
-            const userResponse = await axios.get(`${baseURL}/get_current_user`, { withCredentials: true });
-            return userResponse.data; 
-        } else if (response.data.message === 'Account is inactive') {
-            return response.data;
-        }
-    } catch (error) {
-        //console.error('Login failed:', error);
-        throw error;
-    }
+export const getCurrentUser = () => {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+};
+
+export const handleLogout = () => {
+    localStorage.removeItem('currentUser');
 };

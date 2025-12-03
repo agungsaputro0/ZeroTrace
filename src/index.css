@@ -5,6 +5,12 @@
 @import 'slick-carousel/slick/slick-theme.css';
 
 /* global.css */
+@font-face {
+  font-family: 'zerotrace';
+  src: url("../assets/fonts/Courgette-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 .shadow-left-bottom {
     box-shadow: -10px 10px 15px rgba(0, 0, 0, 0.5);
@@ -163,13 +169,13 @@ aside {
   
   /* Gaya untuk thumb scrollbar */
   ::-webkit-scrollbar-thumb {
-    background: #008000; /* Warna thumb scrollbar */
+    background: #26C6DA; /* Warna thumb scrollbar */
     border-radius: 10px; /* Membuat thumb lebih bulat */
     border: 2px solid #f1f1f1; /* Menambahkan border untuk kontras */
   }
   
   /* Gaya untuk thumb scrollbar saat di-hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #004d00; /* Warna thumb saat di-hover */
+    background: #26C6DA; /* Warna thumb saat di-hover */
   }
   

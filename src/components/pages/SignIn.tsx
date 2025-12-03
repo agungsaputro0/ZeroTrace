@@ -1,26 +1,74 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import handleShowLoginInfo from "../atoms/SignInInfo";
 import InputElement from "../atoms/InputElement";
 import { FaApple, FaGoogle, FaMicrosoft } from "react-icons/fa";
 import { Snackbar, Alert } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { loginStart, loginSuccess, loginFailure } from "../store/authSlice";
+import { handleLogin } from "../hooks/HandleLogin";
 
 const SignIn: React.FC = () => {
-  const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
+  const dispatch = useDispatch(); 
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loginFailed, setLoginFailed] = useState<string>("");
   const [open, setOpen] = useState(false);
-  const [password, setPassword] = useState("");
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [successOpen, setSuccessOpen] = useState(false);
 
-    // Validasi dummy login
-    if (email.trim() === "zeroTrace6@binus.ac.id" && password === "zeroTrace") {
-      navigate("/HomeMobile");
-    } else {
-      setOpen(true);
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+
+    if (loginFailed) {
+      timer = setTimeout(() => {
+        setLoginFailed("");
+      }, 3000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [loginFailed]);
+
+  const handleShowLoginInfo = () => {
+    const dummy = {
+      email: "guest.zerotrace@binus.ac.id",
+      password: "guest123",
+    };
+
+    const emailInput = document.querySelector("input[name='email']") as HTMLInputElement;
+    const passwordInput = document.querySelector("input[name='password']") as HTMLInputElement;
+
+    if (emailInput && passwordInput) {
+      emailInput.value = dummy.email;
+      passwordInput.value = dummy.password;
+    }
+  };
+
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(loginStart());
+    setLoading(true);
+
+    const email = event.currentTarget.email.value;
+    const password = event.currentTarget.password.value;
+
+    try {
+        const user = await handleLogin(email, password); 
+        dispatch(loginSuccess(email));
+        if(user.success === true){
+            setSuccessOpen(true);
+          setTimeout(() => {
+            window.location.href = '/HomeMobile'; 
+          }, 1000); 
+        } else {
+            setOpen(true);
+        }
+    } catch (error) {
+        setLoginFailed("Invalid credentials");
+        dispatch(loginFailure());
+        setOpen(true);
+    } finally {
+        setLoading(false);
     }
   };
   return (
@@ -29,7 +77,7 @@ const SignIn: React.FC = () => {
       className="relative max-w-[420px] mx-auto bg-white px-6 py-6 flex flex-col justify-between overflow-hidden"
     >
     {/* Logo */}
-        <div className="absolute top-0 left-0 w-full h-[75dvh] z-0">
+        <div className="absolute top-0 left-0 w-full h-[520px] z-0">
         <svg
           viewBox="0 0 1440 480"
           xmlns="http://www.w3.org/2000/svg"
@@ -54,25 +102,26 @@ const SignIn: React.FC = () => {
         </svg>
       </div>
       
-      <div className="flex justify-center mb-4 mt-4 z-10">
+      <div className="flex flex-col justify-center items-center mb-4 mt-4 z-10">
         <img
           src="/assets/img/logo-white.png"
           alt="ZeroTrace Logo"
           className="w-24 h-24"
         />
+        <h1 className="text-center text-3xl font-bold mb-8 mt-2 text-white z-10">Sign In</h1>
       </div>
 
       {/* Title */}
-      <h1 className="text-center text-3xl font-bold mb-8 text-white z-10">Sign In</h1>
+      
       {/* Form */}
-      <form className="flex flex-col gap-4 mt-8" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-4 mt-8 z-20" onSubmit={handleSubmit}>
         <InputElement
           forwhat="email"
           labelMessage="Email"
           typeInput="text"
           inputName="email"
           inputPlaceholder="example@example.com"
-          onChange={(e) => setEmail(e.target.value)}
+          
         />
         <InputElement
           inputClass="mb-4"
@@ -82,12 +131,11 @@ const SignIn: React.FC = () => {
           inputName="password"
           inputPlaceholder="••••••••"
           autoComplete="none"
-          onChange={(e) => setPassword(e.target.value)}
         />
 
         {/* Remember + Forgot */}
         <div className="flex justify-end items-center -mt-6 text-md">
-          <Link to="/forgot-password" className="text-gray-700 text-md">
+          <Link to="#" className="text-gray-700 text-md">
             Forgot password ?
           </Link>
         </div>
@@ -113,6 +161,7 @@ const SignIn: React.FC = () => {
       {/* Submit Button */}
       <button
         type="submit"
+        disabled={loading}
         className="w-full py-3 text-white bg-zeroTrace-gradient rounded-full font-semibold transition-all duration-300 hover:bg-[#4e9900] hover:shadow-xl hover:scale-105 active:scale-95"
       >
         Sign In
@@ -139,10 +188,46 @@ const SignIn: React.FC = () => {
         onClose={() => setOpen(false)}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert severity="error" onClose={() => setOpen(false)}>
-          Sign In Error, Please check your crendential
+        <Alert 
+          severity="error" 
+          onClose={() => setOpen(false)}
+          sx={{
+            width: "400px",
+            backgroundImage: "linear-gradient(to right, #f17a7aff, #FF7043)", 
+            color: "white",
+            fontWeight: "bold",
+            borderRadius: "12px",
+            paddingY: "4px",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)", 
+            border: "1px solid rgba(255, 255, 255, 0.2)"
+          }}
+        >
+          Login Error, Please check your crendential
         </Alert>
       </Snackbar>
+     <Snackbar
+      open={successOpen}
+      autoHideDuration={3000}
+      onClose={() => setSuccessOpen(false)}
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+    >
+      <Alert
+        severity="success"
+        onClose={() => setSuccessOpen(false)}
+        sx={{
+          width: "400px",
+          backgroundColor: "#66fbb8",
+          color: "white",
+          fontWeight: "bold",
+          borderRadius: "12px",
+          paddingY: "4px",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.25)",   
+          border: "1px solid rgba(255, 255, 255, 0.3)"  
+        }}
+      >
+        Login Success!, Please wait...
+      </Alert>
+    </Snackbar>
     </div>
   );
 };

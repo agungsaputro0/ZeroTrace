@@ -8,8 +8,8 @@ type StakeholderRouteProps = {
 };
 
 const StakeholderRoute = ({ children }: StakeholderRouteProps) => {
-  const { userName, loading, userKategori } = useAuth();
-
+  const { userName, loading } = useAuth();
+  
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -18,9 +18,10 @@ const StakeholderRoute = ({ children }: StakeholderRouteProps) => {
     return <Navigate to="/Login" replace />;
   }
 
-  if (userKategori === 'administrator') {
-    return <Navigate to="/home" replace />; 
-  }
+  // if (userRole === 1 && window.location.pathname !== "/Home") {
+  //   return <Navigate to="/Home" replace />;
+  // }
+
 
   return <>{children}</>;
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaSearch } from "react-icons/fa";
+import { FaArrowLeft, FaSearch } from "react-icons/fa";
 import MobileBottomNav from "../organisms/MobileBottomNav";
 import communityData from "../../data/DummyCommunities";
 
@@ -20,12 +20,32 @@ const CommunityListPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white pb-28 min-h-screen-dvh">
-      <div className="px-4 pt-6 mb-2">
-        <h2 className="text-xl font-semibold text-green-800 mb-4">Communities</h2>
+    <div className="relative max-w-[420px] mx-auto min-h-screen-dvh bg-white px-4 pb-24">
+      <div className="absolute top-0 left-0 w-full h-[160px] z-0">
+        <svg viewBox="0 0 1440 480" className="w-full h-full" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#26C6DA" />
+              <stop offset="100%" stopColor="#26D6A8" />
+            </linearGradient>
+          </defs>
+          <path
+            fill="url(#waveGradient)"
+            d="M0,200 C240,180 480,220 720,200 C960,180 1200,220 1440,200 V0 H0 Z"
+          />
+        </svg>
+      </div>
+      <div className="px-2 pt-6 mb-2 relative z-20">
+        
+        <div className="flex items-center gap-3 mb-2 -mt-2 relative z-20">
+                <button onClick={() => navigate("/HomeMobile")} className="text-white">
+                  <FaArrowLeft />
+                </button>
+                <h1 className="text-2xl text-white font-zerotrace font-semibold">Community</h1>
+       </div>
 
         {/* Search bar */}
-        <div className="flex items-center gap-2 border px-3 py-2 rounded-full shadow-sm bg-gray-50">
+        <div className="flex items-center gap-2 border px-1 py-2 mt-12 rounded-full shadow-sm bg-gray-50">
           <FaSearch className="text-gray-500" />
           <input
             type="text"
@@ -41,12 +61,12 @@ const CommunityListPage: React.FC = () => {
       </div>
 
       {/* List */}
-      <div className="px-4">
+      <div className="px-4 mt-4">
         {visibleCommunities.map((community) => (
           <div
             key={community.id}
             onClick={() => navigate(`/CommunityDetail/${community.id}`)}
-            className="flex gap-3 bg-[#F0FDF4] hover:bg-[#e8f5e9] rounded-xl p-3 mb-3 cursor-pointer shadow-sm transition"
+            className="flex gap-3 bg-mainColor/60 hover:bg-secondColor/60 rounded-xl p-3 mb-3 cursor-pointer shadow-sm transition duration-300 ease-in-out"
           >
             <img
               src={community.image}
@@ -68,7 +88,7 @@ const CommunityListPage: React.FC = () => {
           <div className="text-center mt-4">
             <button
               onClick={showMore}
-              className="text-green-700 text-sm font-medium underline"
+              className="text-secondColor text-sm font-medium"
             >
               Show More
             </button>

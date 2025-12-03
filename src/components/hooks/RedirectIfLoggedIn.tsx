@@ -7,18 +7,14 @@ type RedirectIfLoggedInProps = {
   };
 
 const RedirectIfLoggedIn = ({ children }: RedirectIfLoggedInProps) => {
-  const { userName, userKategori } = useAuth();
+  const { userName, userRole } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userName) {
-      if (userKategori === 'administrator') {
-        navigate('/home');
-      } else {
-        navigate('/portal'); 
-      }
+        navigate('/HomeMobile'); 
     }
-  }, [userName, userKategori, navigate]);
+  }, [userName, userRole, navigate]);
 
   return <>{children}</>;; 
 };
