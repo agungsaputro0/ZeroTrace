@@ -3,20 +3,19 @@ import InputElement from "../atoms/InputElement";
 import Button from "../atoms/Button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { notification, Spin } from "antd";
+
 import { LoadingOutlined } from '@ant-design/icons'; 
-import { HandleActivateAccount } from "../hooks/HandleResendActivation";
-import { useParams } from "react-router-dom";
-import { handleLoginAfterActivation } from "../hooks/HandleLogin";
+
+
+
 import { useDispatch } from 'react-redux'; 
-import { loginStart, loginSuccess, loginFailure } from "../store/authSlice";
+import { loginStart } from "../store/authSlice";
+import { Spin } from "antd";
  
 const appName = import.meta.env.NEXT_PUBLIC_APP_NAME;
 
 const ActivateUserForm: FC = () => {
-  const { uid } = useParams<{ uid: string }>();
-  const { email } = useParams<{ email: string }>();
-  const { password } = useParams<{ password: string }>();
+  
   const [activateAccountFailed, setactivateAccountFailed] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const usernameRef = useRef<HTMLInputElement | null>(null);
@@ -45,30 +44,7 @@ const ActivateUserForm: FC = () => {
     setLoading(true);
     dispatch(loginStart());
 
-    const kode_aktivasi = event.currentTarget.kode_aktivasi.value;
-    //console.log(uid);
-    try {
-        await HandleActivateAccount(uid ?? "", kode_aktivasi); 
-        const user = await handleLoginAfterActivation(email ?? "", password ?? ""); 
-        const userKategori = user.kategori;
-        dispatch(loginSuccess(email));
-        notification.success({
-            message: "Aktivasi Akun Berhasil!",
-            description: "Mohon tunggu beberapa saat!",
-        });
-        setTimeout(() => {
-          window.location.href = userKategori === 'administrator' ? '/home' : '/portal'; 
-        }, 1000); 
-    } catch (error) {
-        dispatch(loginFailure());
-        setactivateAccountFailed("Invalid credentials");
-        notification.error({
-            message: "Aktivasi Akun Gagal!",
-            description: "Mohon maaf, Kode Aktivasi Anda tidak valid!",
-        });
-    } finally {
-        setLoading(false);
-    }
+    
   };
 
   const loadingIndicator = <LoadingOutlined style={{ fontSize: 24, color: 'blue' }} spin />;

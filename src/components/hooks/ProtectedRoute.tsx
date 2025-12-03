@@ -8,7 +8,7 @@ type ProtectedRouteProps = {
 };
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { userName, loading, userKategori } = useAuth();
+  const { userName, loading } = useAuth();
 
   if (loading) {
     return <LoadingSpinner />;
@@ -16,10 +16,6 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
 
   if (!userName) {
     return <Navigate to="/Login" replace />;
-  }
-
-  if (userKategori !== 'administrator') {
-    return <Navigate to="/portal" replace />; 
   }
 
   return <>{children}</>;

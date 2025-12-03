@@ -3,11 +3,12 @@ import InputElement from "../atoms/InputElement";
 import Button from "../atoms/Button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import { notification, Spin } from "antd";
+
 import { LoadingOutlined } from '@ant-design/icons'; 
-import { handleLogin } from "../hooks/HandleLogin";
+
 import { useDispatch } from 'react-redux'; 
-import { loginStart, loginSuccess, loginFailure } from "../store/authSlice";
+import { loginStart} from "../store/authSlice";
+import { Spin } from "antd";
 
 const appName = import.meta.env.NEXT_PUBLIC_APP_NAME;
 
@@ -40,40 +41,7 @@ const LoginForm: FC = () => {
     dispatch(loginStart());
     setLoading(true);
 
-    const email = event.currentTarget.email.value;
-    const password = event.currentTarget.password.value;
-
-    try {
-        const user = await handleLogin(email, password); 
-        const userKategori = user.kategori;
-        dispatch(loginSuccess(email));
-        if(user.message === 'Account is inactive'){
-          notification.success({
-              message: "Kredensial Ditemukan!",
-              description: "Silakan aktivasi akun anda terlebih dahulu!",
-          });
-          setTimeout(() => {
-            window.location.href = '/AktivasiAkun/' + user.id + '/' + user.email + '/' + user.password; 
-          }, 1000); 
-        } else {
-          notification.success({
-            message: "Login Berhasil!",
-            description: "Selamat, Anda berhasil Login!",
-          });
-          setTimeout(() => {
-            window.location.href = userKategori === 'administrator' ? '/home' : '/portal'; 
-          }, 1000); 
-        }
-    } catch (error) {
-        setLoginFailed("Invalid credentials");
-        dispatch(loginFailure());
-        notification.error({
-            message: "Login Gagal!",
-            description: "Mohon maaf, Kredensial Anda tidak valid!",
-        });
-    } finally {
-        setLoading(false);
-    }
+    
   };
 
   const loadingIndicator = <LoadingOutlined style={{ fontSize: 24, color: 'blue' }} spin />;
