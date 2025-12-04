@@ -38,6 +38,10 @@ const Redeem = lazy(() => import('./components/pages/RedeemPage'));
 const ChallengeDetailPage = lazy(() => import('./components/pages/ChallengeDetailPage'));
 const NewsDetailPage = lazy(() => import('./components/pages/NewsDetail'));
 const Statistics = lazy(() => import('./components/pages/Statistics'));
+const EditProfile = lazy(() => import('./components/pages/EditProfilePage'));
+const Settings = lazy(() => import('./components/pages/Settings'));
+const LeaderBoard = lazy(() => import('./components/pages/Leaderboard'));
+const ActivityHistory = lazy(() => import('./components/pages/ActivityHistory'));
 
 
 const Welcome = lazy(() => import('./components/pages/Welcome'));
@@ -63,19 +67,23 @@ const App = () => {
         <Route path="/SignUp" element={<RedirectIfLoggedIn><SignUp /></RedirectIfLoggedIn>} />
         <Route path="/HomeMobile" element={<RedirectIfLoggedIn><HomeMobile /></RedirectIfLoggedIn>} />
         <Route path="/WasteTracker" element={<RedirectIfLoggedIn><WasteTracker /></RedirectIfLoggedIn>} />
+        <Route path="/Leaderboard" element={<StakeholderRoute><LeaderBoard /></StakeholderRoute>} />
+        <Route path="/ActivityHistory" element={<StakeholderRoute><ActivityHistory /></StakeholderRoute>} />
         <Route path="/NearbySmartBin" element={<StakeholderRoute><NearbySmartBin /></StakeholderRoute>} />
         <Route path="/SmartBinDetail/:id" element={<StakeholderRoute><SmartBinDetail /></StakeholderRoute>} />
         <Route path="/ReportSmartBin/:id" element={<StakeholderRoute><ReportSmartBin /></StakeholderRoute>} />
         <Route path="/WasteBankDetail/:id" element={<RedirectIfLoggedIn><WasteBankDetail /></RedirectIfLoggedIn>} />
-        <Route path="/ReportIllegalDumping" element={<RedirectIfLoggedIn><ReportListPage /></RedirectIfLoggedIn>} />
-        <Route path="/ReportDetail/:id" element={<RedirectIfLoggedIn><ReportDetail /></RedirectIfLoggedIn>} />
-        <Route path="/CreateReport" element={<RedirectIfLoggedIn><CreateReport /></RedirectIfLoggedIn>} />
-        <Route path="/JoinCleanUp/:id" element={<RedirectIfLoggedIn><JoinCleanUpPage /></RedirectIfLoggedIn>} />
+        <Route path="/ReportIllegalDumping" element={<StakeholderRoute><ReportListPage /></StakeholderRoute>} />
+        <Route path="/ReportDetail/:id" element={<StakeholderRoute><ReportDetail /></StakeholderRoute>} />
+        <Route path="/CreateReport" element={<StakeholderRoute><CreateReport /></StakeholderRoute>} />
+        <Route path="/JoinCleanUp/:id" element={<StakeholderRoute><JoinCleanUpPage /></StakeholderRoute>} />
         <Route path="/Community" element={<StakeholderRoute><Communities /></StakeholderRoute>} />
         <Route path="/CommunityDetail/:id" element={<StakeholderRoute><CommunityDetail /></StakeholderRoute>} />
         <Route path="/CommunityContent/:id" element={<StakeholderRoute><CommunityContent /></StakeholderRoute>} />
         <Route path="/RecyclingGuide" element={<StakeholderRoute><RecyclingGuide /></StakeholderRoute>} />
         <Route path="/MyAccount" element={<StakeholderRoute><MyAccount /></StakeholderRoute>} />
+        <Route path="/EditProfile" element={<StakeholderRoute><EditProfile /></StakeholderRoute>} />
+        <Route path="/Settings" element={<StakeholderRoute><Settings /></StakeholderRoute>} />
         <Route path="/SmartBinScanner" element={<StakeholderRoute><SmartBinScanner /></StakeholderRoute>} />
         <Route path="/BinVerified" element={<StakeholderRoute><BinVerified /></StakeholderRoute>} />
         <Route path="/WeightDetected" element={<StakeholderRoute><WeightDetected /></StakeholderRoute>} />
@@ -87,7 +95,7 @@ const App = () => {
         <Route path="/PickUpConfirmationResult/:id" element={<RedirectIfLoggedIn><PickupConfirmationResult /></RedirectIfLoggedIn>} />
         <Route path="/MyEcoReward" element={<StakeholderRoute><MyEcoRewards /></StakeholderRoute>} />
         <Route path="/Redeem" element={<StakeholderRoute><Redeem /></StakeholderRoute>} />
-        <Route path="/ChallengeDetail/:id" element={<RedirectIfLoggedIn><ChallengeDetailPage /></RedirectIfLoggedIn>} />
+        <Route path="/ChallengeDetail/:id" element={<StakeholderRoute><ChallengeDetailPage /></StakeholderRoute>} />
         <Route path="/NewsDetail/:id" element={<StakeholderRoute><NewsDetailPage /></StakeholderRoute>} />
         <Route path="/Statistics" element={<StakeholderRoute><Statistics /></StakeholderRoute>} />
 

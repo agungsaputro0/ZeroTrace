@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Swal from "sweetalert2";
 import { availableChallenges } from "../../data/DummyRewards";
-import { FaArrowLeft, FaTrash } from "react-icons/fa";
+import { FaArrowLeft, FaMapMarkerAlt, FaShareAlt } from "react-icons/fa";
 import MobileBottomNav from "../organisms/MobileBottomNav";
 
 const ChallengeDetailPage: React.FC = () => {
@@ -10,149 +9,98 @@ const ChallengeDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const challenge = availableChallenges.find((c) => c.id === id);
 
-  const [proofText, setProofText] = useState("");
-  const [proofFile, setProofFile] = useState<File | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
   if (!challenge) {
     return <p className="p-4 text-red-600">Tantangan tidak ditemukan.</p>;
   }
 
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    if (file) setProofFile(file);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) setProofFile(file);
-  };
-
-  const handleSubmit = async () => {
-    if (!proofText.trim() && !proofFile) {
-      return Swal.fire({
-        title: "Bukti masih kosong!",
-        text: "Silakan isi catatan atau upload bukti terlebih dahulu.",
-        icon: "warning",
-        confirmButtonColor: "#16a34a",
-      });
-    }
-
-    const result = await Swal.fire({
-      title: `<div class="text-green-800 font-semibold text-lg mb-1">Kirim Bukti?</div>`,
-      html: `<p class="text-sm text-gray-700">Bukti akan diperiksa oleh tim kami. Kamu akan mendapat <strong>${challenge.reward} poin</strong> bila lolos verifikasi 🌿</p>`,
-      showCancelButton: true,
-      confirmButtonText: "Kirim Sekarang",
-      cancelButtonText: "Batal",
-      confirmButtonColor: "#16a34a",
-      background: "#f0fdf4",
-    });
-
-    if (result.isConfirmed) {
-      setSubmitted(true);
-      Swal.fire({
-        icon: "success",
-        title: "Terkirim!",
-        text: "Bukti kamu telah dikirim untuk ditinjau.",
-        confirmButtonColor: "#16a34a",
-      });
-    }
-  };
-
   return (
-    <div className="max-w-md mx-auto min-h-screen-dvh bg-white py-4">
-      {/* Header */}
-      <div className="flex items-center gap-3 mb-4 px-4">
-        <button onClick={() => navigate(-1)} className="text-green-700">
+    <div className="relative max-w-[420px] mx-auto min-h-screen-dvh bg-white px-4 pb-24">
+      {/* HEADER */}
+      <div className="absolute top-0 left-0 w-full h-[160px] z-0">
+        <svg viewBox="0 0 1440 480" className="w-full h-full" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#26C6DA" />
+              <stop offset="100%" stopColor="#26D6A8" />
+            </linearGradient>
+          </defs>
+          <path
+            fill="url(#waveGradient)"
+            d="M0,200 C240,180 480,220 720,200 C960,180 1200,220 1440,200 V0 H0 Z"
+          />
+        </svg>
+      </div>
+      <div className="flex items-center gap-3 py-4 mb-2 relative z-20">
+        <button onClick={() => navigate("/MyEcoReward")} className="text-white">
           <FaArrowLeft />
         </button>
-        <h2 className="text-lg font-semibold text-green-800">Tantangan</h2>
+        <h1 className="text-xl text-white font-zerotrace font-semibold">Challenge Detail</h1>
       </div>
 
       {/* Detail Challenge */}
-      <div className="bg-gradient-to-b from-[#B8E986] to-[#ffffff] p-4">
-      <div className="bg-yellow-50 border border-yellow-100 rounded-xl p-4 shadow mb-6">
-        {challenge.image && (
-          <img
-            src={challenge.image}
-            alt={challenge.name}
-            className="w-full h-40 object-cover rounded mb-3"
-          />
-        )}
-        <h3 className="text-green-800 font-bold text-lg">{challenge.name}</h3>
-        <p className="text-sm text-gray-700 mt-1">{challenge.description}</p>
-        <p className="text-xs text-yellow-700 mt-2">🎯 Hadiah: {challenge.reward} poin</p>
-      </div>
+      <div className="bg-white rounded-b-xl shadow-lg mt-8">
+        <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-md mb-6">
+          {challenge.image && (
+            <img
+              src={challenge.image}
+              alt={challenge.name}
+              className="w-full h-44 object-cover rounded mb-4"
+            />
+          )}
+          <h3 className="text-green-800 font-bold text-xl mb-2">{challenge.name}</h3>
+          <p className="text-gray-700 mb-3">{challenge.description}</p>
 
-      {/* Form */}
-      {!submitted ? (
-        <>
-          <label className="text-sm font-medium text-gray-700 block mb-1">
-            Catatan / Link Bukti
-          </label>
-          <textarea
-            value={proofText}
-            onChange={(e) => setProofText(e.target.value)}
-            rows={3}
-            placeholder="Contoh: Link Drive, catatan kegiatan..."
-            className="w-full border border-gray-300 rounded-lg p-2 text-sm mb-4 shadow-sm"
-          />
+          <div className="flex justify-between items-center mb-3">
+            <span className="text-sm text-yellow-700 font-semibold">
+              🎯 Reward: {challenge.reward} poin
+            </span>
+            <span className="text-xs text-gray-500">{challenge.duration}</span>
+          </div>
 
-          {/* Dropzone */}
-          <label className="text-sm font-medium text-gray-700 block mb-1">
-            Upload Bukti (opsional)
-          </label>
-          {!proofFile ? (
-            <div
-              className="w-full border-2 border-dashed border-green-300 rounded-lg p-4 text-center text-sm text-gray-600 cursor-pointer hover:border-green-400 bg-green-50 mb-4"
-              onClick={() => inputRef.current?.click()}
-              onDrop={handleDrop}
-              onDragOver={(e) => e.preventDefault()}
-            >
-              Seret file ke sini atau klik untuk unggah
-              <input
-                type="file"
-                accept="image/*"
-                ref={inputRef}
-                onChange={handleFileChange}
-                hidden
-              />
-            </div>
-          ) : (
-            <div className="flex items-center gap-3 mb-4 bg-gray-100 p-2 rounded shadow-sm">
-              <img
-                src={URL.createObjectURL(proofFile)}
-                alt="Preview"
-                className="w-12 h-12 object-cover rounded"
-              />
-              <span className="text-sm flex-1 truncate">{proofFile.name}</span>
-              <button
-                onClick={() => setProofFile(null)}
-                className="text-red-500 hover:text-red-700"
-              >
-                <FaTrash />
-              </button>
+          {/* Tips */}
+          {challenge.tips && challenge.tips.length > 0 && (
+            <div className="mb-4">
+              <h4 className="text-sm font-semibold text-green-800 mb-1">Tips 🌿</h4>
+              <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
+                {challenge.tips.map((tip, idx) => (
+                  <li key={idx}>{tip}</li>
+                ))}
+              </ul>
             </div>
           )}
 
-          <button
-            onClick={handleSubmit}
-            className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-full text-sm font-semibold transition"
-          >
-            Kirim Bukti
-          </button>
-        </>
-      ) : (
-        <div className="bg-green-50 border border-green-100 p-4 rounded-xl text-center shadow-sm">
-          <p className="text-green-800 font-semibold mb-2">✅ Bukti telah dikirim!</p>
-          <p className="text-sm text-gray-600">
-            Tunggu proses verifikasi. Kamu akan mendapatkan poin setelah disetujui 🌿
-          </p>
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <span className="text-sm text-gray-600">Progress</span>
+            <div className="w-full bg-gray-200 rounded-full h-3 mt-1">
+              <div
+                className="h-3 rounded-full bg-green-500 transition-all duration-500"
+                style={{ width: `${challenge.progress}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={() => navigate("/NearbySmartBin")}
+              className="w-full flex items-center justify-center gap-2 bg-zeroTrace-gradient hover:brightness-90 text-white py-2 rounded-full text-sm font-semibold transition"
+            >
+              <FaMapMarkerAlt /> View Nearby SmartBins
+            </button>
+
+            
+              <button
+                onClick={() => navigator.share?.({ title: challenge.name, text: challenge.description })}
+                className="w-full flex items-center justify-center gap-2 border border-secondColor text-secondColor hover:bg-secondColor hover:text-white py-2 rounded-full text-sm font-semibold transition"
+              >
+                <FaShareAlt /> Share Challenge
+              </button>
+           
+          </div>
         </div>
-      )}
       </div>
+
       <MobileBottomNav />
     </div>
   );

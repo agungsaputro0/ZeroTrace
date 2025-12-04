@@ -50,7 +50,7 @@ const MyEcoRewardsPage: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const handleRedeem = (reward: any) => {
     // Cek cukup poin
-    if ((points + totalPoin) < reward.cost) {
+    if ((points + totalPoin - totalPoinUsed) < reward.cost) {
       setErrorMessage("You do not have enough points!");
       setErrorOpen(true);
       return;
@@ -123,7 +123,7 @@ const MyEcoRewardsPage: React.FC = () => {
   const totalPoinUsed = userPoinData.reduce((acc, item) => acc + (item.cost || 0), 0);
 
   const badge = getBadge();
-  const progress = Math.min((points / badge.next) * 100, 100);
+  const progress = Math.min(((points + totalPoin - totalPoinUsed) / badge.next) * 100, 100);
 
   const filteredRewards = availableRewards.filter((r) =>
     r.name.toLowerCase().includes(search.toLowerCase())
@@ -133,12 +133,19 @@ const MyEcoRewardsPage: React.FC = () => {
     c.name.toLowerCase().includes(search.toLowerCase())
   );
 
- 
+  const { state } = useLocation();
+
+  useEffect(() => {
+    if (state?.scrollTo) {
+      const el = document.getElementById(state.scrollTo);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [state]);
   
   // Scroll to challenges jika ada hash
   useEffect(() => {
-    if (location.hash === "#challenges") {
-      const el = document.getElementById("challenges");
+    if (location.hash === "#challenge") {
+      const el = document.getElementById("challenge");
       if (el) {
         setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
       }
@@ -381,7 +388,7 @@ const MyEcoRewardsPage: React.FC = () => {
 
         {/* Challenges */}
         <h4
-          id="challenges"
+          id="challenge"
           className="text-md font-semibold text-secondColor mt-6 mb-2"
         >
           🔥 Active Challenges

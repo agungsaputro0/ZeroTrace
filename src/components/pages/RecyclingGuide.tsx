@@ -152,9 +152,9 @@ const RecyclingGuide: React.FC = () => {
 
               {/* Timeline tips */}
               <div
-              className={`overflow-hidden transition-all duration-500`}
-              style={{ maxHeight: isExpanded ? "1000px" : "3.5rem" }} // default line-clamp 3
-            >
+                className={`overflow-hidden transition-all duration-500`}
+                style={{ maxHeight: isExpanded ? "1000px" : "3.5rem" }} // default line-clamp 3
+              >
               <p
                 className={`text-sm text-gray-700 mb-2 text-justify ${
                   !isExpanded ? "line-clamp-3" : ""
@@ -165,6 +165,7 @@ const RecyclingGuide: React.FC = () => {
 
               {/* Timeline tips */}
               {isExpanded && (
+              <>
                 <Timeline
                   className="mt-6 bg-transparent"
                   mode="left"
@@ -174,7 +175,30 @@ const RecyclingGuide: React.FC = () => {
                     key: idx,
                   }))}
                 />
-              )}
+                {/* Extra Links Section */}
+                <div className=" flex flex-col gap-3">
+
+                  {/* Link text */}
+                  <a
+                    href="https://www.google.com/search?q=recycling+guide"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-700  font-medium"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    Learn more about {item.type} waste recycling...
+                  </a>
+
+                  {/* Button link */}
+                  <button
+                    className="bg-zeroTrace-gradient text-white px-4 py-2 rounded-full text-sm shadow hover:bg-green-600 transition"
+                  >
+                    Open Nearby Recycling Centers
+                  </button>
+
+                </div>
+              </>
+            )}
             </div>
 
             </div>

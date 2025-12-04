@@ -6,7 +6,6 @@ import {
   FaChartLine,
   FaExclamationTriangle,
   FaEllipsisH,
-  FaBars,
   FaLeaf,
   FaTimes,
 } from "react-icons/fa";
@@ -44,11 +43,11 @@ const Home: React.FC = () => {
   const idPengguna = user?.idPengguna || "Guest User";
   
    const dummyData = Array.from({ length: 10 }, (_, i) => ({
-    idPengguna,
-    tambahanPoin: Math.floor(Math.random() * 10) + 1,
-    statusDilihat: true, // semua dummy dianggap sudah dibaca
-    timestamp: new Date(Date.now() - i * 24 * 3600 * 1000).toISOString()
-  }));
+      idPengguna,
+      tambahanPoin: Math.floor(Math.random() * 10) + 1,
+      statusDilihat: true, // semua dummy dianggap sudah dibaca
+      timestamp: new Date(Date.now() - i * 24 * 3600 * 1000).toISOString()
+    }));
 
  useEffect(() => {
     const ecoData: any[] = JSON.parse(localStorage.getItem("ecoData") || "[]");
@@ -61,24 +60,34 @@ const Home: React.FC = () => {
     setUnreadCount(unread.length);
   }, [idPengguna]);
 
-   const displayedNotifications =
-    activeTab === "all"
-      ? notifications
-      : notifications.filter((item) => item.statusDilihat === false);
+  const displayedNotifications =
+  (activeTab === "all"
+    ? notifications
+    : notifications.filter((item) => item.statusDilihat === false)
+  ).sort((a, b) => {
+    // Urutan utama: statusDilihat = false harus di atas
+    if (a.statusDilihat !== b.statusDilihat) {
+      return a.statusDilihat ? 1 : -1; 
+    }
+
+    // Jika status sama, urutkan berdasarkan timestamp (baru → lama)
+    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+  });
 
 
-  const handleClosePanel = () => setShowPanel(false);
 
-  const handleBellClick = () => {
-    setShowPanel(!showPanel);
-
-    // Optional: set semua statusDilihat menjadi true ketika panel dibuka
+  const handleClosePanel = () => {
+    setShowPanel(false)
     const ecoData: any[] = JSON.parse(localStorage.getItem("ecoData") || "[]");
     const updatedData = ecoData.map((item) =>
       item.idPengguna === idPengguna ? { ...item, statusDilihat: true } : item
     );
     localStorage.setItem("ecoData", JSON.stringify(updatedData));
     setUnreadCount(0);
+  };
+
+  const handleBellClick = () => {
+    setShowPanel(!showPanel);
   };
 
   
@@ -136,7 +145,7 @@ const Home: React.FC = () => {
           )}
            {showPanel && (
             <div
-              className="absolute right-0 w-72 bg-white border border-gray-200 shadow-lg rounded-lg p-3 z-50"
+              className="absolute right-0 align-self-center w-72 bg-white border border-gray-200 shadow-lg rounded-lg p-3 z-50"
               onClick={(e) => e.stopPropagation()} // mencegah panel tertutup saat diklik
             >
               {/* Header + Close */}
@@ -169,7 +178,7 @@ const Home: React.FC = () => {
 
               {/* List */}
               {displayedNotifications.length === 0 ? (
-                <p className="text-gray-500 text-sm mt-2">No notifications</p>
+                <p className="text-gray-500 text-sm mt-2 text-center">No notifications</p>
               ) : (
                 <ul className="space-y-2 max-h-60 overflow-y-auto mt-1">
                   {(activeTab === "unread"
@@ -180,7 +189,11 @@ const Home: React.FC = () => {
                   ).map((item, index) => (
                     <li
                       key={index}
-                      className="flex items-start gap-2 text-gray-700 text-sm border-b border-gray-200 pb-2"
+                      className={`flex items-start gap-2 text-gray-700 text-sm border-b pb-2
+                        ${item.statusDilihat === false 
+                          ? "bg-green-50 border-green-300 border-l-4" 
+                          : "border-gray-200"
+                        }`}
                     >
                       <FaLeaf className="text-green-500 mt-1" />
                       <div className="flex flex-col">
@@ -207,8 +220,6 @@ const Home: React.FC = () => {
           )}
           </div>
 
-          {/* Hamburger */}
-          <FaBars className="text-white w-8 h-8 cursor-pointer" />
         </div>
       </div>
 
@@ -240,14 +251,35 @@ const Home: React.FC = () => {
       {/* Quick Menu */}
       <div className="bg-white rounded-xl border shadow px-4 py-3 flex justify-between items-center mb-5">
         {[
-          { icon: <BiTask className="w-6 h-6" />, label: "Mission", path: "/tasks" },
-          { icon: <FaChartLine className="w-6 h-6" />, label: "Statistics", path: "/statistics" },
-          { icon: <FaExclamationTriangle className="w-6 h-6" />, label: "Report Trash", path: "/ReportIllegalDumping" },
-          { icon: <FaEllipsisH className="w-6 h-6" />, label: "More", path: "/more" },
-        ].map((item) => (
+              {
+                icon: <BiTask className="w-6 h-6" />,
+                label: "Challenge",
+                path: "/MyEcoReward",
+                state: { scrollTo: "challenge" }
+              },
+              {
+                icon: <FaChartLine className="w-6 h-6" />,
+                label: "Statistics",
+                path: "/statistics"
+              },
+              {
+                icon: <FaExclamationTriangle className="w-6 h-6" />,
+                label: "Report Trash",
+                path: "#"
+              },
+              {
+                icon: <FaEllipsisH className="w-6 h-6" />,
+                label: "More",
+                path: "#"
+              },
+            ].map((item) => (
           <div
             key={item.label}
-            onClick={() => navigate(item.path)}
+            onClick={() =>
+              item.state
+                ? navigate(item.path, { state: item.state })
+                : navigate(item.path)
+            }
             className="flex flex-col items-center hover:scale-105 cursor-pointer"
           >
             <div className="bg-zeroTrace-gradient p-2 rounded-full mb-1 text-white">

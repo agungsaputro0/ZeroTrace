@@ -7,7 +7,7 @@ const NewsListPage: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto p-4 pb-20 bg-white">
-      <h2 className="text-xl font-bold text-secondColor mb-4">News and Activity</h2>
+      <h2 className="text-xl font-bold text-secondColor mb-4">News and Article</h2>
 
       {newsData.map((news) => (
         <div

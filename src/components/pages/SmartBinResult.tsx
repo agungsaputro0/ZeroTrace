@@ -88,35 +88,35 @@ const SmartBinResult: React.FC = () => {
             <span className="flex items-center gap-2">
               <FaMapMarkerAlt className="text-green-600" /> Location:
             </span>
-            <span>Sustainable Corner - Binus Anggrek</span>
+            <span className="font-bold">Smart Bin Binus Anggrek</span>
           </div>
 
           <div className="flex justify-between">
             <span className="flex items-center gap-2">
               <FaRecycle className="text-green-600" /> Category:
             </span>
-            <span>Plastic</span>
+            <span className="font-bold">Plastic</span>
           </div>
 
           <div className="flex justify-between">
             <span className="flex items-center gap-2">
               <FaWeightHanging className="text-green-600" /> Weight:
             </span>
-            <span>0.85 kg</span>
+            <span className="font-bold">0.85 kg</span>
           </div>
 
           <div className="flex justify-between">
             <span className="flex items-center gap-2">
               <FaClock className="text-green-600" /> Drop Time:
             </span>
-            <span>{formattedDate}</span>
+            <span className="font-bold">{formattedDate}</span>
           </div>
 
           <div className="flex justify-between">
             <span className="flex items-center gap-2">
               <FaBarcode className="text-green-600" /> Smart Bin ID:
             </span>
-            <span>SB045029001</span>
+            <span className="font-bold">SB045029001</span>
           </div>
 
           <hr className="my-3 border-t border-green-200" />
@@ -125,7 +125,7 @@ const SmartBinResult: React.FC = () => {
             <span className="flex items-center gap-2">
               <FaLeaf className="text-green-600" /> CO₂ Saved:
             </span>
-            <span>1,27 kg</span>
+            <span className="font-bold">1,27 kg</span>
           </div>
 
           <div className="bg-green-50 border border-green-200 rounded-xl text-justify p-4 mt-3 shadow-sm animate-fadeIn text-gray-700 text-sm">
